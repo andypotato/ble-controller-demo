@@ -1,0 +1,7 @@
+{
+  "name": "ble-controller-demo",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

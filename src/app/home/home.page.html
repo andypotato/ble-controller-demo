@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar [color]="isConnected ? 'success' : 'danger'">
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!isConnected" [disabled]="isConnecting" (click)="onConnect()">
+        <ion-icon slot="icon-only" name="bluetooth"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="isConnected" (click)="onDisconnect()">
+        <ion-icon slot="icon-only" name="pause"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Bluetooth
+      <span *ngIf="isConnected">connected</span>
+      <span *ngIf="!isConnected">disconnected</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="controller-container">
+    <div class="inlay">
+      <div class="joypad-container">
+        <div class="dpad-container">
+          <div class="btn-row">
+            <ion-button size="large" color="secondary"
+              (press)="onPressButton(0)"
+              (pressup)="onReleaseButton(0)"
+              (panend)="onReleaseButton(0)">U</ion-button>
+          </div>
+          <div class="btn-row">
+            <ion-button size="large" color="secondary"
+              (press)="onPressButton(2)"
+              (pressup)="onReleaseButton(2)"
+              (panend)="onReleaseButton(2)">L</ion-button>
+            <ion-button size="large" color="secondary"
+              (press)="onPressButton(3)"
+              (pressup)="onReleaseButton(3)"
+              (panend)="onReleaseButton(3)">R</ion-button>
+          </div>
+          <div class="btn-row">
+            <ion-button size="large" color="secondary"
+              (press)="onPressButton(1)"
+              (pressup)="onReleaseButton(1)"
+              (panend)="onReleaseButton(1)">D</ion-button>
+          </div>
+        </div>
+        <div class="btn-container1">
+          <ion-button expand="block"
+            (press)="onPressButton(4)"
+            (pressup)="onReleaseButton(4)"
+            (panend)="onReleaseButton(4)">Start</ion-button>
+          <ion-button expand="block"
+            (press)="onPressButton(5)"
+            (pressup)="onReleaseButton(5)"
+            (panend)="onReleaseButton(5)">Select</ion-button>
+        </div>
+        <div class="btn-container2">
+          <ion-button size="large" color="secondary"
+            (press)="onPressButton(7)"
+            (pressup)="onReleaseButton(7)"
+            (panend)="onReleaseButton(7)">B</ion-button>
+          <ion-button size="large" color="secondary"
+            (press)="onPressButton(6)"
+            (pressup)="onReleaseButton(6)"
+            (panend)="onReleaseButton(6)">A</ion-button>
+        </div>
+      </div>
+      <div class="debug-container">
+        <div class="val">
+          Pitch: {{pitch|number:'1.0-0'}}
+        </div>
+        <div class="val">
+          Roll: {{roll|number:'1.0-0'}}
+        </div>
+        <div class="val">
+          Yaw: {{yaw|number:'1.0-0'}}
+        </div>
+        <div class="val">
+          Btn: {{buttonState}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
