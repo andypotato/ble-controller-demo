@@ -41,5 +41,5 @@ import { ControllerService } from './services/controller.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {};
+export class AppModule {}
 
