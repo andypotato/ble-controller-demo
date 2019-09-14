@@ -66,7 +66,7 @@ export class ControllerService {
 
   public sendControllerData(buttons: number, x: number, y: number, z: number) {
 
-    const adj = 127 / 360;
+    const adj = 255 / 360;
 
     // create controller data
     // x and y (pitch, roll) range from -180 to 180
