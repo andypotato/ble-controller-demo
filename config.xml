@@ -105,6 +105,6 @@
     <plugin name="cordova-plugin-insomnia" spec="^4.3.0" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.2" />
     <plugin name="cordova-plugin-appminimize" spec="^1.0.1" />
-    <engine name="android" spec="^7.1.4" />
-    <engine name="ios" spec="^4.5.5" />
+    <engine name="android" spec="7.1.4" />
+    <engine name="ios" spec="4.5.5" />
 </widget>

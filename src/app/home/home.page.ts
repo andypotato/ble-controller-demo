@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { Events, AlertController } from '@ionic/angular';
 
 import { ControllerService } from '../services/controller.service';
@@ -36,16 +36,19 @@ export class HomePage implements OnInit, OnDestroy {
 
   @HostListener('window:deviceorientation', ['$event'])
   public onDeviceOrientation({ alpha, gamma, beta, absolute }: DeviceOrientationEvent): void {
-    this.pitch = Math.round(beta);
-    this.roll = Math.round(gamma);
-    this.yaw = Math.round(alpha);
+    this.zone.run(() => {
+      this.pitch = Math.round(beta);
+      this.roll = Math.round(gamma);
+      this.yaw = Math.round(alpha);
+    });
   }
 
   // construction
   constructor(
+    private alertController: AlertController,
     private controller: ControllerService,
     private events: Events,
-    private alertController: AlertController,
+    private zone: NgZone
   ) {
 
   }
