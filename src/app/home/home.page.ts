@@ -19,12 +19,12 @@ export class HomePage implements OnInit, OnDestroy {
   private lastButtonState = 0;
 
   // gyroscope angles
-  public pitch = 0.0;
-  public roll = 0.0;
-  public yaw = 0.0;
-  private lastPitch = 0.0;
-  private lastRoll = 0.0;
-  private lastYaw = 0.0;
+  public pitch = 0;
+  public roll = 0;
+  public yaw = 0;
+  private lastPitch = 0;
+  private lastRoll = 0;
+  private lastYaw = 0;
 
   // the minimum angle which registers as change
   private minAngleChange = 1.0;
