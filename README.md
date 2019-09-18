@@ -1,7 +1,7 @@
 # BLE Controller Demo
 Demo of a classic 8-bit game controller with motion controls and Bluetooth (BLE) connectivity implemented with Ionic 4 / Angular and Cordova. To use it you also need the [peripheral counterpart available at this repository](https://github.com/andypotato/ble-receiver-demo "peripheral counterpart available at this repository").
 
-This project is part of a [tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications](https://medium.com/@andreas.schallwig "tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications").
+This project is part of a [tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications](https://medium.com/@andreas.schallwig/your-phone-as-bluetooth-controller-for-web-applications-81acfe53dd64 "tutorial on using Bluetooth Controllers with HTML5 / JavaScript applications").
 
 ## Usage
 
