@@ -16,6 +16,15 @@
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <script>
+    var requestOrientationPermit = async function() {
+      return await DeviceOrientationEvent.requestPermission();
+    }
+
+    var orientationPermissionsNeeded = function() {
+      return (typeof DeviceOrientationEvent.requestPermission) === 'function';
+    }
+  </script>
 </head>
 
 <body>

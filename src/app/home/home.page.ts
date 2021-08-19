@@ -3,6 +3,10 @@ import { Events, AlertController } from '@ionic/angular';
 
 import { ControllerService } from '../services/controller.service';
 
+// check index.html for definition
+declare var requestOrientationPermit : any;
+declare var orientationPermissionsNeeded : any;
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -32,6 +36,10 @@ export class HomePage implements OnInit, OnDestroy {
   // controller update
   private updateInterval: any = false;
   private FPS = 60;
+
+  // IOS 13+ requires gyroscope permissions
+  private orientationPermissionGranted: boolean = false;
+
   // ------
 
   @HostListener('window:deviceorientation', ['$event'])
@@ -84,9 +92,24 @@ export class HomePage implements OnInit, OnDestroy {
 
   // UI actions
   public onConnect() {
-    this.isConnecting = true;
-    this.controller.connect();
-    console.log('Connecting bluetooth interface');
+
+    if(orientationPermissionsNeeded() && !this.orientationPermissionGranted) {
+      console.log("Requesting orientation permission");
+      requestOrientationPermit()
+      .then(res => {
+        if(res == "granted") {
+          console.log("Orientation permission granted");
+          this.orientationPermissionGranted = true;
+          this.startConnection();
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      });
+    } else {
+      // directly start connecting
+      this.startConnection();
+    }
   }
 
   public onDisconnect() {
@@ -134,6 +157,12 @@ export class HomePage implements OnInit, OnDestroy {
   // ---------------------------------------------------------------------------
 
   // implementation
+  private startConnection() {
+    this.isConnecting = true;
+    this.controller.connect();
+    console.log('Connecting bluetooth interface');
+  }
+
   private startUpdate() {
     this.updateInterval = setInterval(() => {
       this.sendData();
