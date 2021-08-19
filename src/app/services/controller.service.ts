@@ -12,6 +12,9 @@ export class ControllerService {
   public isConnected = false;
   private scanTimer: any = false;
   private peripheral = null;
+
+  private scannerSub;
+  private connectionSub;
   // -----
 
   // construction
@@ -34,7 +37,7 @@ export class ControllerService {
     console.log('Requested device connection');
 
     // scan for bluetooth devices which provide our service
-    this.ble.startScan([bleConfig.SERVICE_UUID]).subscribe(
+    this.scannerSub = this.ble.startScan([bleConfig.SERVICE_UUID]).subscribe(
       (device) => { this.onScanDiscovery(device); },
       (error)  => { this.onScanError(error); }
     );
@@ -46,6 +49,7 @@ export class ControllerService {
     this.scanTimer = setTimeout(() => {
       console.log('Scan timeout');
       this.ble.stopScan();
+      this.scannerSub.unsubscribe();
       this.events.publish('Controller:scanTimeout');
     }, bleConfig.TIMEOUT * 1000);
   }
@@ -101,13 +105,14 @@ export class ControllerService {
 
     // stop timeout
     clearTimeout(this.scanTimer);
+    this.scannerSub.unsubscribe();
     console.log('Discovered device:', device.id);
     console.log('Name:', device.advertising.kCBAdvDataLocalName);
 
     this.events.publish('Controller:scanDiscovery', device);
 
     // connect device
-    this.ble.connect(device.id).subscribe(
+    this.connectionSub = this.ble.connect(device.id).subscribe(
       (peripheral) => { this.onDeviceConnected(peripheral); },
       (peripheral) => { this.onDeviceDisconnected(peripheral); }
     );
@@ -131,6 +136,8 @@ export class ControllerService {
   private onDeviceDisconnected(peripheral) {
 
     console.log('Device disconnected');
+
+    this.connectionSub.unsubscribe();
 
     this.isConnected = false;
     this.peripheral = null;
